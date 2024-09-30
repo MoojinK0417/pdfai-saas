@@ -19,7 +19,7 @@ export async function POST(req: Request) {
   } catch (error) {
     return new NextResponse("webhook error", { status: 400 });
   }
-  const session = event.data.object as Stripe.checkout.session;
+  const session = event.data.object as Stripe.Checkout.Session;
 
   // new subscription created
 
