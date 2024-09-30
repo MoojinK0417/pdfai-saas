@@ -5,7 +5,6 @@ import { openai } from "@ai-sdk/openai";
 import {
   Message,
   streamText,
-  AIStream,
 } from "ai";
 import { eq } from "drizzle-orm";
 import { NextResponse } from "next/server";
