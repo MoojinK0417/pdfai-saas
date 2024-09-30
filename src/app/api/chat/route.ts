@@ -6,8 +6,6 @@ import {
   Message,
   streamText,
   AIStream,
-  StreamData,
-  AIStreamCallbacksAndOptions,
 } from "ai";
 import { eq } from "drizzle-orm";
 import { NextResponse } from "next/server";
