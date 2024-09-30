@@ -61,21 +61,6 @@ export async function POST(req: Request) {
       },
     });
 
-      const stream = AIStream(response.toDataStreamResponse(), (data: string) => {
-        // Custom parser logic to extract message content
-        const parsedData = JSON.parse(data); // Example parsing logic
-        return parsedData.message || ""; // Return the extracted message
-
-    }, {
-        onStart: async () => {
-          await db.insert(_messages).values({
-            chatId,
-            content: lastMessage.content,
-            role: 'user',
-          });
-        },
-    });
-
     return response.toDataStreamResponse();
   } catch (error) {}
 }

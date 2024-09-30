@@ -16,13 +16,17 @@ export const checkSubscription = async () => {
     .from(userSubscription)
     .where(eq(userSubscription.userId, userId));
 
-    if (!_userSubscription[0]) {
-        return false
-    }
+  if (!_userSubscription[0]) {
+    return false;
+  }
 
-    const userSub = _userSubscription[0]
+  const userSub = _userSubscription[0];
+  const stripeCurrentPeriodEndTime = userSub.stripeCurrentPeriodEnd?.getTime();
 
-    const isValid = userSub.stripePriceId && userSub.stripeCurrentPeriodEnd?.getTime()! + DAYS_IN_MS > Date.now();
+  const isValid =
+    userSub.stripePriceId &&
+    stripeCurrentPeriodEndTime !== undefined &&
+    stripeCurrentPeriodEndTime + DAYS_IN_MS > Date.now();
 
-    return !!isValid;
+  return !!isValid;
 };

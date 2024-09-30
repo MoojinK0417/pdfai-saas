@@ -1,4 +1,3 @@
-import { primaryKey } from "drizzle-orm/mysql-core";
 import {
   integer,
   pgEnum,

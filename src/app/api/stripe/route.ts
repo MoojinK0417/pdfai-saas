@@ -1,6 +1,3 @@
-// /api/stripe
-
-import { metadata } from "@/app/layout";
 import { db } from "@/lib/db";
 import { userSubscription } from "@/lib/db/schema";
 import { stripe } from "@/lib/stripe";
