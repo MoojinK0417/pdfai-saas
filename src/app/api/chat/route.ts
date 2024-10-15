@@ -2,10 +2,7 @@ import { getContext } from "@/lib/context";
 import { db } from "@/lib/db";
 import { chats, messages as _messages } from "@/lib/db/schema";
 import { openai } from "@ai-sdk/openai";
-import {
-  Message,
-  streamText,
-} from "ai";
+import { Message, streamText } from "ai";
 import { eq } from "drizzle-orm";
 import { NextResponse } from "next/server";
 // Allow streaming responses up to 30 seconds
@@ -47,12 +44,17 @@ export async function POST(req: Request) {
       ],
       async onFinish(completion) {
         try {
+          await db.insert(_messages).values({
+            chatId,
+            content: lastMessage.content,
+            role: "user",
+          });
           // Save the system's response to the database
-            await db.insert(_messages).values({
-              chatId,
-              content: completion.text, // Save the completion text as the system's response
-              role: "system",
-            });
+          await db.insert(_messages).values({
+            chatId,
+            content: completion.text, // Save the completion text as the system's response
+            role: "system",
+          });
           console.log("Completion saved to the database.");
         } catch (error) {
           console.error("Error saving completion to the database:", error);
